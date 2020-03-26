@@ -8,33 +8,31 @@ import javax.swing.text.html.HTMLDocument.Iterator;
 import java.util.Collections;
 public class Main {
 	public static void main(String[] args) {
-	    // Create a HashMap object called capitalCities
-		
-		String l = "azertyuiop";
-		char s = 'c';
-		
-	    HashMap<String, Integer> capitalCities = new HashMap<String, Integer>();
-	    ArrayList<Integer> freq = new ArrayList<Integer>(); 
-	    //System.out.println(capitalCities);
-	    Texte alice = new Texte("alice.txt");
-	    //System.out.println(alice);
-	    //System.out.println( alice.txt);
-	   
-	    System.out.println(alice.getSetcaract());
-	   alice.alphaFreq();
-	    System.out.println(alice.getSetTuple());
-	    System.out.println(alice.setTuple);
-	    alice.tri();
-	    System.out.println(alice.setTuple);
-	    alice.affichage();
 	    
+	    
+	    Texte alice = new Texte("alice.txt");
+	   
+	    alice.alphaFreq();
+	    System.out.println(alice.getSetTuple().size());
+	   
+	    alice.tri();
+	    
+	    alice.affichageTuple();
+	    alice.creation_noeud();
+	    Noeud n1 = alice.creation_arbre();
+	    alice.parcourArbre(n1,"");
+	    System.out.println(n1);
+	    
+	    
+	    	
+	    }
+	   
+	   
 	   
 	  
 	  
 	   
 	}
-
-	} 
 	
 	
 
