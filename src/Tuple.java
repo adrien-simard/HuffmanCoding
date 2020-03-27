@@ -26,6 +26,12 @@ public class Tuple {
 	public void setFreq(int freq) {
 		this.freq = freq;
 	}
+
+
+	@Override
+	public String toString() {
+		return "caract=" + caract + " freq=" + freq  ;
+	}
 	
 
 }

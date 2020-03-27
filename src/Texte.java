@@ -1,9 +1,13 @@
 import java.awt.List;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
@@ -15,11 +19,23 @@ public class Texte {
 	ArrayList<Tuple> setTuple = new ArrayList<Tuple>();
 	Set<Character> setcaract = new TreeSet<Character>();
 	private ArrayList<Noeud> listeNoeuds = new ArrayList<Noeud>();
+	HashMap<Character, String> dict = new HashMap<Character, String>();
 	
 
 	public ArrayList<Noeud> getListeNoeuds() {
 		return listeNoeuds;
 	}
+	
+
+	public HashMap<Character, String> getDict() {
+		return dict;
+	}
+
+
+	public void setDict(HashMap<Character, String> dict) {
+		this.dict = dict;
+	}
+
 
 	public void setListeNoeuds(ArrayList<Noeud> listeNoeuds) {
 		this.listeNoeuds = listeNoeuds;
@@ -128,16 +144,19 @@ public class Texte {
 	public Noeud creation_arbre() {
 		ArrayList<Noeud> noeuds2 = (ArrayList<Noeud>) listeNoeuds.clone();
 		while(noeuds2.size()>1) {
+			//System.out.println(noeuds2.get(0) + " "+ noeuds2.get(1));
 			Noeud n1 = noeuds2.get(0);
-			Noeud n2 = noeuds2.get(1);
-			noeuds2.add(new Noeud(n1.getFreq() +n2.getFreq(),'¤',n1,n2,""));
 			noeuds2.remove(0);
-			noeuds2.remove(1);
-			this.triNoeuds(noeuds2);	
+			Noeud n2 = noeuds2.get(0);
+			noeuds2.remove(0);
+			
+			noeuds2.add(new Noeud(n1.getFreq() +n2.getFreq(),'¤',n1,n2,""));
+			noeuds2=this.triNoeuds(noeuds2);
+			
 		}
 		return noeuds2.get(0);
 	}
-	public void triNoeuds(ArrayList<Noeud> list) 
+	public ArrayList<Noeud> triNoeuds(ArrayList<Noeud> list) 
 	{
 		for(int i = 1;i< list.size();i++) 
 		{
@@ -164,18 +183,17 @@ public class Texte {
 			list.get(j).setFg(fg_courant);
 			list.get(j).setCodebin(codebin);
 		}
+		return list;
 	}
 	//parcour recursif de l'arbre
 	
-int i =0;
+
 	public void parcourArbre(Noeud racine,String codeBin) {
-		
-		System.out.println(i);
-		++i;
 		
 		if(racine.estFeuille()==true) {
 			racine.setCodebin(codeBin);
-			System.out.println(racine.getCaract() + " " + racine.getCodebin());
+			//System.out.println(racine.getCaract() + " " + racine.getCodebin());
+			this.dict.put(racine.getCaract(), racine.getCodebin());
 			
 		}
 		
@@ -184,17 +202,41 @@ int i =0;
 			parcourArbre(racine.getFd(), codeBin + "1");	
 		}
 	}
+	
+	public void writeFreq() {
+	    try {
+	    	File myObj = new File("C:\\Users\\33699\\Documents\\Sem6 fi3\\HuffmanCoding-master\\src");
+	      FileWriter myWriter = new FileWriter("freq.txt");
+	      for(int i = 0;i<this.getSetTuple().size();i++) {
+	    	  
+	    	  myWriter.write(this.getSetTuple().get(i).caract +" "+ this.getSetTuple().get(i).freq);
+	    	  myWriter.write("\r\n");
+		      
+	      }
+	      myWriter.close();
+	     
+	      System.out.println("Successfully wrote to the file.");
+	    } catch (IOException e) {
+	      System.out.println("An error occurred.");
+	      e.printStackTrace();
+	    }
+	  }
+	
+	public String writecodeBin() {
+		String texte = "";
+		for (int i = 0; i< this.txt.length();i++) {
+			
+			texte = texte + this.getDict().get(this.txt.charAt(i));
+			
+			
+		}
+		return texte;
+	}
 		
+	
 			
 			
 
 	
 
 	}
-	
-	
-	
-	
-	
-	
-	

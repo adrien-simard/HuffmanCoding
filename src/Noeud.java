@@ -20,7 +20,7 @@ public class Noeud {
 
 	@Override
 	public String toString() {
-		return "Noeud [freq=" + freq + ", caract=" + caract + ", fd=" + fd + ", fg=" + fg + ", codebin=" + codebin
+		return "[freq=" + freq + ", caract=" + caract +  ", codebin=" + codebin
 				+ "]";
 	}
 
