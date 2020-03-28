@@ -8,10 +8,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class Texte {
@@ -20,6 +17,19 @@ public class Texte {
 	Set<Character> setcaract = new TreeSet<Character>();
 	private ArrayList<Noeud> listeNoeuds = new ArrayList<Noeud>();
 	HashMap<Character, String> dict = new HashMap<Character, String>();
+	
+	public void codageHuffman(String doctxt, String docbin,String docfreq) {
+		this.alphaFreq();
+		this.tri();
+		this.creation_noeud();
+		Noeud n1 = this.creation_arbre();
+		this.parcourArbre(n1,"");
+		this.writeFreqCode(docfreq);
+		this.codeBintexte(docbin);
+		System.out.println("Compression terminée !");
+		System.out.println("taux de compression " + this.compression(doctxt, docbin) +" nombre de bits moyen "+ this.nbBitMoy());
+		 
+	}
 	
 
 	public ArrayList<Noeud> getListeNoeuds() {
@@ -203,37 +213,94 @@ public class Texte {
 		}
 	}
 	
-	public void writeFreq() {
-	    try {
-	    	File myObj = new File("C:\\Users\\33699\\Documents\\Sem6 fi3\\HuffmanCoding-master\\src");
-	      FileWriter myWriter = new FileWriter("freq.txt");
-	      for(int i = 0;i<this.getSetTuple().size();i++) {
-	    	  
-	    	  myWriter.write(this.getSetTuple().get(i).caract +" "+ this.getSetTuple().get(i).freq);
-	    	  myWriter.write("\r\n");
-		      
-	      }
-	      myWriter.close();
-	     
-	      System.out.println("Successfully wrote to the file.");
-	    } catch (IOException e) {
-	      System.out.println("An error occurred.");
-	      e.printStackTrace();
-	    }
-	  }
-	
-	public String writecodeBin() {
-		String texte = "";
-		for (int i = 0; i< this.txt.length();i++) {
+	public void writeFreqCode(String chemin) {
+		try{
+			File ff=new File(chemin); // définir l'arborescence
+			ff.createNewFile();
+			FileWriter ffw=new FileWriter(ff);
+			 ffw.write("\n");
+			 ffw.write("Fréquence");
+			 ffw.write("\n");
+			 for (Tuple i: this.getSetTuple()) {
+				 ffw.write(i.toString());  // écrire une ligne dans le fichier resultat.txt
+				 ffw.write("\n"); // forcer le passage à la ligne
+		    	  
+		    	}
+			 ffw.write("\n");
+			 ffw.write("dictionnaire");
+			 ffw.write("\n");
+			 for (char i : this.getDict().keySet()) {
+				 ffw.write(i + "-->" + this.getDict().get(i));  // écrire une ligne dans le fichier resultat.txt
+				 ffw.write("\n"); // forcer le passage à la ligne
+		    	  
+		    	}
 			
+			ffw.close(); // fermer le fichier à la fin des traitements
+			} catch (Exception e) {}
+			}
+	     
+	  
+	
+	public void codeBintexte(String chemin) {
+		String texte ="";
+		for (int i = 0; i< this.txt.length();i++) {
 			texte = texte + this.getDict().get(this.txt.charAt(i));
+			
+		
+	}
+		while(texte.length()%8 != 0) {
+			texte= texte +'0';
+			
+		}
+		ArrayList<String> octet = new ArrayList<String>();
+		for(int i = 8;i<=texte.length();i=i+8) {
+			
+			octet.add(texte.substring(i-8, i));
+			
+		}
+		
+		try {
+			
+			File fff=new File(chemin); // définir l'arborescence
+			fff.createNewFile();
+			FileWriter fffw=new FileWriter(fff);
+			
+			for(String i: octet) {
+				int s = Integer.parseInt(i, 2);
+				fffw.write((byte)s);
+			}
+			
+			
+			fffw.close();
 			
 			
 		}
-		return texte;
+		
+		catch (Exception e) {}
+	}
+	
+	public float compression(String doctxt, String docbin) {
+		File txt = new File(doctxt);
+		File bin = new File(docbin);
+		double txtbytes = txt.length();
+		double txtbits = txtbytes *8;
+		double binbytes = bin.length();
+		double binbits = binbytes *8;
+		double txtkb = txtbits/1024;
+		double binkb = binbits/1024;
+		return (float)(1-(binkb/txtkb));
+		
+	}
+	public float nbBitMoy() {
+		int tot = 0;
+		int freq =0;
+		for(Tuple tuple : this.getSetTuple()) {
+			tot = tot + tuple.getFreq()* this.getDict().get(tuple.getCaract()).length();
+			freq = freq + tuple.getFreq();
+		}
+		return tot/freq;
 	}
 		
-	
 			
 			
 
