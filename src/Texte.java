@@ -1,5 +1,6 @@
 import java.awt.List;
 import java.io.BufferedReader;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
@@ -10,15 +11,42 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.TreeSet;
+/** 
+ *  <b>Texte est la classe representant mon texte et elle contient toute les opérations qui vont être effectué sur lui afin de le compresser.</b>
+ * <p>
+ * Un Texte est caractérisé par les informations suivantes :
+ * <ul>
+ * <li>son nom .txt</li>
+ * <li>la liste des Tuple contenant les caractère avec leur fréquence dans le texte</li>
+ * <li>La liste des caractères dans le texte</li>
+ * <li>Le dictionnaire des caractères(keys) associé aux fréquences(values)</li>
+ * </ul>
+ * </p>
+
+
+*/
+
 
 public class Texte {
+	
+		
 	String txt;
 	ArrayList<Tuple> setTuple = new ArrayList<Tuple>();
 	Set<Character> setcaract = new TreeSet<Character>();
 	private ArrayList<Noeud> listeNoeuds = new ArrayList<Noeud>();
 	HashMap<Character, String> dict = new HashMap<Character, String>();
-	
+	/**
+	 * Fonction principale qui compresse le texte et revoi un document binaire compresse et un doc.txt avec la liste des fréquences associé aux caractères
+	 * 
+	 * @param doctxt nom.txt ou chemin jusqu'au fichier à compresser.
+	 *@param docbin nom.bin ou chemin jusqu'au fichier compresser de sorti.
+	 *@param docfreq nom2.txt ou chemin jusqu'au fichier texte de sorti avec freq et caractère.
+	 *
+	 *@return fichier binaire,et liste des fréquences.
+	 *
+	 */
 	public void codageHuffman(String doctxt, String docbin,String docfreq) {
+		
 		this.alphaFreq();
 		this.tri();
 		this.creation_noeud();
@@ -66,7 +94,11 @@ public class Texte {
 	public ArrayList<Tuple> getSetTuple() {
 		return setTuple;
 	}
-
+/**
+ * Lit le document.txt nom.txt ou chemin jusqu'au fichier à compresser.
+ * @param adresse adresse 
+ * @return String texte 
+ */
 	public String open(String adresse) {
 		String texte = " ";
 		  try{
@@ -87,6 +119,11 @@ public class Texte {
 		  return texte;
 		  
 	}
+	/**
+	 * obtenir le tuple associé à son caractère, comme une clé avec un dictionnaire
+	 * @param caract char 
+	 * @return Tuple asocié au caractère mit en paramêtre 
+	 */
 	
 	public Tuple getTupleBycaract(char caract) {
 		for(Tuple i: this.setTuple ) {
@@ -96,6 +133,9 @@ public class Texte {
 			
 		}
 		return null;}
+	/**
+	 * Calcul les fréquences des caractère dans le texte et les stocks dans la liste de Tuple
+	 */
 		
 	public void alphaFreq() {
 		for (int i = 0; i< this.txt.length();i++) {
@@ -115,6 +155,9 @@ public class Texte {
 			}
 		}
 	}
+	/**
+	 * Tri la liste de Tuple dans l'ordre croissant des fréquences
+	 */
 	public void tri() 
 	{
 		for(int i = 1;i< this.setTuple.size();i++) 
@@ -133,6 +176,9 @@ public class Texte {
 			this.setTuple.get(j).setCaract(caract_en);
 		}
 	}
+	/**
+	 * Aide permettant d'afficher directement dans le terminale chaque caractère avec sa fréquence 
+	 */
 	public void affichageTuple() 
 	{
 		for(int i = 0; i< this.setTuple.size();i++) 
@@ -141,6 +187,10 @@ public class Texte {
 		}
 	}
 	//je créer la liste des noeuds (feuilles) trié par ordre croissant de mon futur arbre 
+	/**
+	 * Créer la liste des feuilles de mon futur arbre triée dans l'ordre croissant
+	 * @return ArrayList<Noeud>  triée dans l'ordre croissant
+	 */
 	public ArrayList<Noeud> creation_noeud() {
 		for(int i = 0; i< this.setTuple.size();i++) {
 			int a =this.setTuple.get(i).freq;
@@ -151,21 +201,30 @@ public class Texte {
 		
 		
 	}
+	/**
+	 * Créer l'arbre binaire à partir de la liste de noeuds de la fonction creation_noeud
+	 * @return Noeud racine de l'arbre binaire 
+	 */
 	public Noeud creation_arbre() {
 		ArrayList<Noeud> noeuds2 = (ArrayList<Noeud>) listeNoeuds.clone();
 		while(noeuds2.size()>1) {
-			//System.out.println(noeuds2.get(0) + " "+ noeuds2.get(1));
-			Noeud n1 = noeuds2.get(0);
+	
+			Noeud n1 = noeuds2.get(0);//met deux noeuds les plus petits sont unis 
 			noeuds2.remove(0);
 			Noeud n2 = noeuds2.get(0);
 			noeuds2.remove(0);
 			
 			noeuds2.add(new Noeud(n1.getFreq() +n2.getFreq(),'¤',n1,n2,""));
-			noeuds2=this.triNoeuds(noeuds2);
+			noeuds2=this.triNoeuds(noeuds2);//je tri la nouvelle liste des noeuds
 			
 		}
 		return noeuds2.get(0);
 	}
+	/**
+	 * Trie les noeuds dans l'ordre croissant
+	 * @param list ArrayList<Noeud> à triée dans l'ordre croissant 
+	 * @return ArrayList<Noeud> triée dans l'ordre croissant
+	 */
 	public ArrayList<Noeud> triNoeuds(ArrayList<Noeud> list) 
 	{
 		for(int i = 1;i< list.size();i++) 
@@ -195,8 +254,12 @@ public class Texte {
 		}
 		return list;
 	}
-	//parcour recursif de l'arbre
 	
+	/**
+	 * Parcours de l'arbre en profondeur donne 1 quand on va à droite et 0 quand on va a gauche, attribut ainsi le code binaire de chaque feuille
+	 * @param  racine Noeudde l'arbre binaire
+	 * @param  codeBin String code binaire vide "" au départ et ensuite mis a jour à chaque passage dans la fonction recursive
+	 */
 
 	public void parcourArbre(Noeud racine,String codeBin) {
 		
@@ -212,6 +275,10 @@ public class Texte {
 			parcourArbre(racine.getFd(), codeBin + "1");	
 		}
 	}
+	/**
+	 * Ecriture du fichier avec la liste des caractère avec leur fréquence
+	 * @param chemin String chemin où créer le fichier 
+	 */
 	
 	public void writeFreqCode(String chemin) {
 		try{
@@ -239,7 +306,11 @@ public class Texte {
 			} catch (Exception e) {}
 			}
 	     
-	  
+	  /**
+	   * Ecriture du fichier.bin compressé
+	   * @param chemin String  chemin où créer le fichier 
+	 */
+	   
 	
 	public void codeBintexte(String chemin) {
 		String texte ="";
@@ -278,7 +349,12 @@ public class Texte {
 		
 		catch (Exception e) {}
 	}
-	
+	/**
+	 * Calcul du taux de compression
+	 * @param doctxt adresse ou nom du document.txt
+	 * @param docbin adresse ou nom du document.bin
+	 * @return float taux de compression
+	 */
 	public float compression(String doctxt, String docbin) {
 		File txt = new File(doctxt);
 		File bin = new File(docbin);
@@ -291,9 +367,13 @@ public class Texte {
 		return (float)(1-(binkb/txtkb));
 		
 	}
+	/**
+	 * Calcul du nombre de bits moyen utilisé pour coder un caractère 
+	 * @return float nombre moyen de bit
+	 */
 	public float nbBitMoy() {
-		int tot = 0;
-		int freq =0;
+		float tot = 0;
+		float freq =0;
 		for(Tuple tuple : this.getSetTuple()) {
 			tot = tot + tuple.getFreq()* this.getDict().get(tuple.getCaract()).length();
 			freq = freq + tuple.getFreq();

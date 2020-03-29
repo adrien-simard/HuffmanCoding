@@ -1,4 +1,16 @@
 import java.util.LinkedList;
+/** 
+ *  <b>Noeud est la classe representant les Noeuds de l'arbre</b>
+ * <p>
+ * Un Noeud est caractérisé par les informations suivantes :
+ * <ul>
+ * <li>int: freq qui est la fréquence du caractère</li>
+ * <li>char : caract caratère associer à la frequence</li>
+ * <li>Noeud : fd fils droit du noeud</li>
+ * <li>Noeud : fg fils gauche du noeud</li>
+ * <li>String : codebin associé au caractère</li>
+ * </p>
+ */
 
 public class Noeud {
 	private int freq;
@@ -49,9 +61,6 @@ public class Noeud {
 		return fd;
 	}
 	
-	
-	
-
 
 	public void setFd(Noeud fd) {
 		this.fd = fd;
@@ -79,12 +88,8 @@ public class Noeud {
 
 
 	public boolean estFeuille() {
-		if(this.fd==null && this.fg==null) {
-			return true;
+			return  ((this.fg == null) && (this.fd == null));
 		}
-		else {
-			return false;
-		}
-	}
+
 
 }

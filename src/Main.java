@@ -14,7 +14,7 @@ public class Main {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Veuillez saisir le chemin vers votre fichier texte à compresser :");
 		String str1 = sc.nextLine();
-		System.out.println("Veuillez saisir l'emplacement de votre fichier texte qui affichera la liste des fréquences :");
+		System.out.println("Veuillez saisir l'emplacement de votre fichier binaire compressé:");
 		String str2 = sc.nextLine();
 		System.out.println("Veuillez saisir l'emplacement de votre fichier texte qui affichera la liste des fréquences :");
 		String str3 = sc.nextLine();
