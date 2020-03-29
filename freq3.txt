@@ -1,0 +1,148 @@
+
+Fréquence
+caract=2 freq=1
+caract=9 freq=1
+caract=Z freq=1
+caract= freq=1
+caract=[ freq=2
+caract=] freq=2
+caract=_ freq=4
+caract=X freq=4
+caract=J freq=8
+caract=V freq=42
+caract=) freq=55
+caract=( freq=56
+caract=* freq=60
+caract=P freq=64
+caract=U freq=66
+caract=F freq=74
+caract=z freq=77
+caract=K freq=82
+caract=G freq=82
+caract=Q freq=84
+caract=B freq=91
+caract=L freq=98
+caract=" freq=113
+caract=Y freq=114
+caract=N freq=120
+caract=q freq=125
+caract=j freq=138
+caract=R freq=140
+caract=C freq=144
+caract=x freq=144
+caract=O freq=176
+caract=E freq=188
+caract=D freq=192
+caract=; freq=194
+caract=M freq=200
+caract=? freq=202
+caract=S freq=218
+caract=: freq=233
+caract=W freq=237
+caract=H freq=284
+caract=! freq=449
+caract=T freq=472
+caract=A freq=638
+caract=- freq=669
+caract=I freq=733
+caract=v freq=803
+caract=. freq=977
+caract=k freq=1076
+caract=` freq=1108
+caract=b freq=1383
+caract=p freq=1458
+caract=' freq=1761
+caract=m freq=1907
+caract=f freq=1926
+caract=y freq=2150
+caract=c freq=2253
+caract=, freq=2418
+caract=w freq=2437
+caract=g freq=2446
+caract=u freq=3402
+caract=l freq=4615
+caract=d freq=4739
+caract=r freq=5293
+caract=s freq=6277
+caract=i freq=6778
+caract=n freq=6893
+caract=h freq=7088
+caract=o freq=7965
+caract=a freq=8149
+caract=t freq=10212
+caract=e freq=13381
+caract=  freq=28901
+
+dictionnaire
+-->1001001100011000
+ -->11
+!-->000000100
+"-->00000010101
+'-->0000000
+(-->000000110000
+)-->000000110001
+*-->10010011101
+,-->010100
+--->00101101
+.-->1001100
+2-->1001001100011011
+9-->1001001100011010
+:-->100110111
+;-->0000001111
+?-->0000001101
+A-->01010100
+B-->00101100110
+C-->0101010111
+D-->0010110000
+E-->0010110001
+F-->01010101011
+G-->01010101000
+H-->100100100
+I-->00101001
+J-->10010011000101
+K-->01010101001
+L-->00000011001
+M-->0000001110
+N-->1001001111
+O-->0010110010
+P-->10010011100
+Q-->00101100111
+R-->1001001010
+S-->0000001011
+T-->10011010
+U-->10010011001
+V-->100100110000
+W-->100110110
+X-->100100110001000
+Y-->00000010100
+Z-->1001001100011001
+[-->100100110001111
+]-->100100110001110
+_-->100100110001001
+`-->0101011
+a-->0111
+b-->0010111
+c-->011010
+d-->01011
+e-->0001
+f-->100101
+g-->010010
+h-->1010
+i-->00001
+j-->1001001011
+k-->1001000
+l-->01100
+m-->100111
+n-->1011
+o-->1000
+p-->0010101
+q-->1001001101
+r-->01000
+s-->00100
+t-->0011
+u-->000001
+v-->00101000
+w-->010011
+x-->0101010110
+y-->011011
+z-->01010101010
