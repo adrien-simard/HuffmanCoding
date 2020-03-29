@@ -1,12 +1,5 @@
-import java.util.ArrayList;
-import java.util.HashMap; // import the HashMap class
-import java.util.Map;
+
 import java.util.Scanner;
-import java.util.TreeMap;
-
-import javax.swing.text.html.HTMLDocument.Iterator;
-
-import java.util.Collections;
 
 public class Main {
 	public static void main(String[] args) {

@@ -1,4 +1,4 @@
-import java.util.LinkedList;
+
 /** 
  *  <b>Noeud est la classe representant les Noeuds de l'arbre</b>
  * <p>
